@@ -120,6 +120,7 @@ repos() {
 chaotic () {
   echo '# Seting up chaotic-aur repository!' 
 
+
   echo '-> Getting chaotic keys...' 
   sudo pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com &&
   sudo pacman-key --lsign-key 3056513887B78AEB &&
@@ -128,13 +129,23 @@ chaotic () {
   echo '-> Installing mirror list...' 
   sudo pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst' &&
 
+  sudo echo "[chaotic-aur]" >> /etc/pacman.conf
+  sudo echo "Include = /etc/pacman.d/chaotic-mirrorlist" >> /etc/pacman.conf
+
   echo '✅ Successfully configured chaotic-aur!' 
 }
 
 pkgs () {
   echo '# Installing necessary packages...' 
 
-  pacman -S --noconfirm --needed - < pkg-list.txt
+  yay || {
+  pacman -S --needed git base-devel
+  git clone https://aur.archlinux.org/yay.git
+  cd yay
+  makepkg -si
+  }
+  sudo pacman -S --noconfirm --needed - < pkg-list.txt
+  yay -S --noconfirm --needed - < pkg-list.txt
 
   echo '✅ Successfully installed all packages!' 
 }
@@ -168,6 +179,7 @@ utils() {
 confs() {
   echo '# Copying configurations...' 
 
+  mkdir ~/.config
   cp dotfiles/.config/* -r ~/.config/
   cp dotfiles/lab/* -r ~/lab/
   cp dotfiles/.bashrc ~/.bashrc
