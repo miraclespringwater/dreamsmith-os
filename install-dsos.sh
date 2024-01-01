@@ -134,6 +134,7 @@ chaotic () {
 
   echo "[chaotic-aur]" | sudo tee -a /etc/pacman.conf
   echo "Include = /etc/pacman.d/chaotic-mirrorlist" | sudo tee -a /etc/pacman.conf
+  sudo pacman -Sy
 
   echo '✅ Successfully configured chaotic-aur!' 
 }
