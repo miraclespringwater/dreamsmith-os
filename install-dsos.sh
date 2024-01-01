@@ -174,7 +174,8 @@ struct() {
 utils() {
   echo '# Copying custom scripts & utilities...' 
 
-  cp dotfiles/.local/bin/* ~/.local/bin/ -v
+  mkdir ~/.local/bin -p
+  cp $script_dir/dotfiles/.local/bin/* ~/.local/bin/ -v
   
   echo '✅ Successfully copied utilities!' 
 }
