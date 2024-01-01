@@ -86,6 +86,7 @@ awesome_url='https://github.com/miraclespringwater/awesomewm-config'
 dotfiles_url='https://github.com/miraclespringwater/dotfiles'
 
 script_dir="$(cd "$(dirname "$0")" && pwd)"
+echo $script_dir
 
 clear;
 
@@ -182,19 +183,19 @@ confs() {
   echo '# Copying configurations...' 
 
   mkdir ~/.config
-  cp dotfiles/.config/* -r ~/.config/
-  cp dotfiles/lab/* -r ~/lab/
-  cp dotfiles/.bashrc ~/.bashrc
-  cp dotfiles/.bash_profile ~/.bash_profile
-  cp dotfiles/.xinitrc ~/.xinitrc
-  cp dotfiles/.gtkrc-2.0 ~/.gtkrc-2.0
+  cp $script_dir/dotfiles/.config/* -r ~/.config/
+  cp $script_dir/dotfiles/lab/* -r ~/lab/
+  cp $script_dir/dotfiles/.bashrc ~/.bashrc
+  cp $script_dir/dotfiles/.bash_profile ~/.bash_profile
+  cp $script_dir/dotfiles/.xinitrc ~/.xinitrc
+  cp $script_dir/dotfiles/.gtkrc-2.0 ~/.gtkrc-2.0
 
-  cp awesomewm-config -r ~/.config/awesome
-  cp neovim-config -r ~/.config/nvim
+  cp $script_dir/awesomewm-config -r ~/.config/awesome
+  cp $script_dir/neovim-config -r ~/.config/nvim
 
-  sudo cp etc/{acpi,issues,profile} -r /etc/
+  sudo cp $script_dir/etc/{acpi,issues,profile} -r /etc/
   sudo mkdir /etc/X11/xorg.conf.d/ -p
-  sudo cp etc/X11/xorg.conf.d/00-keyboard.conf /etc/X11/xorg.conf.d/00-keyboard.conf
+  sudo cp $script_dir/etc/X11/xorg.conf.d/00-keyboard.conf /etc/X11/xorg.conf.d/00-keyboard.conf
 
   echo '✅ Successfully copied all configurations!' 
 }
