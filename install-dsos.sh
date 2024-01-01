@@ -103,15 +103,15 @@ repos() {
   echo '# Downloading MSW repositories from GitHub...'
 
   echo '-> Downloading AwesomeWM configuration repo...'
-  rm -rf awesomewm-config
+  # rm -rf awesomewm-config
   git clone $awesome_url
   echo
   echo '-> Downloading neovim configuration repo...'
-  rm -rf neovim-config
+  # rm -rf neovim-config
   git clone $nvim_url
   echo
   echo '-> Downloading rest of the dotfiles...'
-  rm -rf dotfiles
+  # rm -rf dotfiles
   git clone $dotfiles_url
 
   echo "✅ Successfully downloaded repositories!"
@@ -144,8 +144,8 @@ pkgs () {
   cd yay
   makepkg -si
   }
-  sudo pacman -S --noconfirm --needed - < pkg-list.txt
-  yay -S --noconfirm --needed - < pkg-list.txt
+  sudo pacman -S --noconfirm --needed - < ./pkg-list.txt
+  yay -S --noconfirm --needed - < ./pkg-list.txt
 
   echo '✅ Successfully installed all packages!' 
 }
