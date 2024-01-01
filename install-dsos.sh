@@ -85,6 +85,8 @@ nvim_url='https://github.com/miraclespringwater/neovim-config'
 awesome_url='https://github.com/miraclespringwater/awesomewm-config'
 dotfiles_url='https://github.com/miraclespringwater/dotfiles'
 
+script_dir="$(cd "$(dirname "$0")" && pwd)"
+
 clear;
 
 ecco() {
@@ -129,8 +131,8 @@ chaotic () {
   echo '-> Installing mirror list...' 
   sudo pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst' &&
 
-  sudo echo "[chaotic-aur]" >> /etc/pacman.conf
-  sudo echo "Include = /etc/pacman.d/chaotic-mirrorlist" >> /etc/pacman.conf
+  echo "[chaotic-aur]" | sudo tee -a /etc/pacman.conf
+  echo "Include = /etc/pacman.d/chaotic-mirrorlist" | sudo tee -a /etc/pacman.conf
 
   echo '✅ Successfully configured chaotic-aur!' 
 }
@@ -139,13 +141,13 @@ pkgs () {
   echo '# Installing necessary packages...' 
 
   yay || {
-  pacman -S --needed git base-devel
+  sudo pacman -S --needed git base-devel
   git clone https://aur.archlinux.org/yay.git
   cd yay
   makepkg -si
   }
-  sudo pacman -S --noconfirm --needed - < ./pkg-list.txt
-  yay -S --noconfirm --needed - < ./pkg-list.txt
+  sudo pacman -S --noconfirm --needed - < $script_dir/pkg-list.txt
+  yay -S --noconfirm --needed - < $script_dir/pkg-list.txt
 
   echo '✅ Successfully installed all packages!' 
 }
@@ -153,17 +155,17 @@ pkgs () {
 struct() {
   echo '# Setting up custom $HOME file structure...' 
 
-  mkdir audio &&
-  mkdir design &&
-  mkdir dev &&
-  mv Documents doc || mkdir doc &&
-  mv Downloads downloads || mkdir downloads &&
-  mkdir lab &&
-  mv Music music || mkdir music &&
-  mv Pictures pix || mkdir pix &&
-  mkdir safe &&
-  mv Videos vid || mkdir vid &&
-  mkdir vms
+  mkdir ~/audio &&
+  mkdir ~/design &&
+  mkdir ~/dev &&
+  mv ~/Documents ~/doc || mkdir ~/doc &&
+  mv ~/Downloads ~/downloads || mkdir ~/downloads &&
+  mkdir ~/lab &&
+  mv ~/Music ~/music || mkdir ~/music &&
+  mv ~/Pictures ~/pix || mkdir ~/pix &&
+  mkdir ~/safe &&
+  mv ~/Videos ~/vid || mkdir ~/vid &&
+  mkdir ~/vms
 
   echo '✅ Successfully setup $HOME file structure!' 
 }
