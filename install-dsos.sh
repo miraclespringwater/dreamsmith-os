@@ -139,17 +139,20 @@ chaotic () {
   echo '✅ Successfully configured chaotic-aur!' 
 }
 
+iyay() {
+  hash yay && {
+    sudo pacman -S --needed git base-devel;
+    git clone https://aur.archlinux.org/yay.git;
+    cd yay;
+    makepkg -si;
+  }
+}
+
 pkgs () {
   echo '# Installing necessary packages...' 
 
-  # yay || {
-  # sudo pacman -S --needed git base-devel
-  # git clone https://aur.archlinux.org/yay.git
-  # cd yay
-  # makepkg -si
-  # }
-  sudo pacman -S --noconfirm --needed - < $script_dir/pkg-list.txt
-  # yay -S --noconfirm --needed - < $script_dir/pkg-list.txt
+  yay -S --noconfirm --needed - < $script_dir/pkg-list.txt
+  # sudo pacman -S --noconfirm --needed - < $script_dir/pkg-list.txt
 
   echo '✅ Successfully installed all packages!' 
 }
@@ -231,6 +234,8 @@ echo -e "\n\n"
 awk '/^$/{p=1; next} p' etc/issues
 echo -e "\n\n"
 
+iyay || error 'Error installing yay'
+echo
 repos || error 'Error downloading repos'
 echo
 chaotic || error 'Error configuring chaotic-aur'
