@@ -142,14 +142,14 @@ chaotic () {
 pkgs () {
   echo '# Installing necessary packages...' 
 
-  yay || {
-  sudo pacman -S --needed git base-devel
-  git clone https://aur.archlinux.org/yay.git
-  cd yay
-  makepkg -si
-  }
+  # yay || {
+  # sudo pacman -S --needed git base-devel
+  # git clone https://aur.archlinux.org/yay.git
+  # cd yay
+  # makepkg -si
+  # }
   sudo pacman -S --noconfirm --needed - < $script_dir/pkg-list.txt
-  yay -S --noconfirm --needed - < $script_dir/pkg-list.txt
+  # yay -S --noconfirm --needed - < $script_dir/pkg-list.txt
 
   echo '✅ Successfully installed all packages!' 
 }
@@ -193,9 +193,13 @@ confs() {
   cp $script_dir/dotfiles/.gtkrc-2.0 ~/.gtkrc-2.0
 
   cp $script_dir/awesomewm-config -r ~/.config/awesome
+  cd ~/.config/awesome
+  git submodule update --init
+  cd -
   cp $script_dir/neovim-config -r ~/.config/nvim
 
   sudo cp $script_dir/etc/{acpi,issues,profile} -r /etc/
+  sudo cp $script_dir/etc/issues /etc/issue
   sudo mkdir /etc/X11/xorg.conf.d/ -p
   sudo cp $script_dir/etc/X11/xorg.conf.d/00-keyboard.conf /etc/X11/xorg.conf.d/00-keyboard.conf
 
@@ -228,11 +232,18 @@ awk '/^$/{p=1; next} p' etc/issues
 echo -e "\n\n"
 
 repos || error 'Error downloading repos'
+echo
 chaotic || error 'Error configuring chaotic-aur'
+echo
 pkgs || error 'Error installing packages'
+echo
 struct || error 'Error writing custom file structure'
+echo
 utils || error 'Error copying utilities and custom scripts'
+echo
 confs || error 'Error copying user configurations'
+echo
+services || error 'Error starting services'
 
 
 ### Copy custom scripts/utils
