@@ -237,8 +237,8 @@ iyay || error 'Error installing yay'
 echo
 repos || error 'Error downloading repos'
 echo
-chaotic || error 'Error configuring chaotic-aur'
-echo
+# chaotic || error 'Error configuring chaotic-aur'
+# echo
 pkgs || error 'Error installing packages'
 echo
 struct || error 'Error writing custom file structure'
@@ -271,3 +271,9 @@ services || error 'Error starting services'
 # optionally setup mail (neomutt)
 # optionally change caps to escape
 ###
+#
+#
+# need to:
+# - add nvim packer
+# - add fzf
+# - figure out how to set icons for gtk and qt

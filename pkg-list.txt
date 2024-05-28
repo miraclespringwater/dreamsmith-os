@@ -27,6 +27,7 @@ brave-bin
 breeze-icons
 brightnessctl
 caffeine
+cargo
 cava
 cmake
 cmatrix
@@ -78,7 +79,7 @@ mpv
 neofetch
 neomutt
 neovim
-nerd-fonts-jetbrains-mono-160
+ttf-jetbrains-mono-nerd
 nerdfetch
 net-tools
 netpbm
@@ -104,7 +105,7 @@ pass
 patch
 pavucontrol
 pcmanfm
-picom-pijulius-git
+picom-ftlabs-git
 pipewire
 pipewire-alsa
 pipewire-audio
@@ -158,7 +159,7 @@ sqlite
 telegram-desktop-bin
 terminus-font
 thunderbird
-timeshift-bin
+timeshift
 tmux
 tree
 tree-sitter
